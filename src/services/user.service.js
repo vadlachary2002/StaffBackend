@@ -1,6 +1,7 @@
 const config = require("../config/config");
 const { User, Account } = require("../models")
 const bcryptjs = require('bcryptjs');
+const jwt  = require("jsonwebtoken");
 const { createAccount } = require("./account.service");
 
 const signup = async (userBody)=>{
@@ -90,9 +91,8 @@ const login =  async (userBody)=>{
      };
   }
   const defaultMatch = await bcryptjs.compare(config.defaultPassword,exsistingUser.password);
-  console.log("came3",defaultMatch);
   const isAdmin =  await User.isAdmin(exsistingUser.email);
-  console.log("ad",isAdmin);
+  const token = jwt.sign({email : exsistingUser.email, staffId },config.jwtkey);
   return {
     code:200,
     info:{
@@ -101,7 +101,8 @@ const login =  async (userBody)=>{
       shouldChangePassword:!!defaultMatch,
       isAdmin,
       email:exsistingUser.email,
-      staffId:exsistingUser.staffId
+      staffId:exsistingUser.staffId,
+      token
     }
   }
 }

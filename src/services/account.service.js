@@ -113,15 +113,6 @@ const search = async(name,subject,field)=>{
             $in:[...matchField]
           } },
         ],
-        $and:[
-          {"designation":{
-            $regex :name?name:"" , $options:"i"
-          }},
-          {"field":{
-            $in:[...matchField]
-          } },
-        ],
-
       }
     },
   ])

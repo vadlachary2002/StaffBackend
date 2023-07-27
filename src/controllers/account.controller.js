@@ -3,6 +3,7 @@ const catchAsync = require("../utils/catchAsync");
 
 const getAccount = catchAsync(async (req,res)=>{
   const { email } = req.query;
+  console.log("cok",req.cookies);
   const { code, info } = await accountService.getAccountDetails(email);
   res.status(code).json(info);
 });

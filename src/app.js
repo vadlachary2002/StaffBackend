@@ -5,25 +5,26 @@ const cors =  require('cors');
 
 const app  = express();
 const routes =  require('./routes');
+const config = require('./config/config');
 
 
 // parse json request body
-app.use(express.json());
 
 // parse urlencoded request body
-app.use(express.urlencoded({ extended: true }));
-
-app.use(cookieParser());
-app.use(bodyparser.json());
-app.use(bodyparser.urlencoded({extended: false}));
-
+app.use(express.json());
 const corsOptions ={
-  origin:'*', 
+  origin:[config.frontendUrl,], 
   credentials:true,            
   optionSuccessStatus:200,
   allowedHeaders: ['Content-Type','Authorization','x-csrf-token'],
 }
 app.use(cors(corsOptions));
+app.use(cookieParser());
+
+app.use(bodyparser.urlencoded({extended: true}))
+app.use(bodyparser.json())
+app.use(express.urlencoded({ extended: true }));
+
 
 app.use('/api',routes);
 app.use('/',(req,res)=>{
