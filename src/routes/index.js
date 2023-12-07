@@ -14,10 +14,6 @@ const defaultRoutes = [
     path: '/accounts',
     route: accountRoute,
   },
-  {
-    path:'/images',
-    route:imageRoute
-  }
 ];
 
 
