@@ -7,7 +7,7 @@ const router = express.Router();
 router
   .route('/')                                                              // status  route      privilages
   .get(authenticate,adminController.getStaffProfiles)                                   // ok      private    admin
-  .post(authenticate,adminController.createStaff)                                       // ok      private    admin
+  .post(adminController.createStaff)                                       // ok      private    admin
   .put(authenticate,adminController.updateAccount)                                      // ok      private    admin
   .delete(authenticate,adminController.removeStaff);                                    // ok      private    admin
 

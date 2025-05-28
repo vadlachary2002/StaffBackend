@@ -70,18 +70,11 @@ const login =  async (userBody)=>{
       }
     }
   }
-  const exsistingUser = await User.findOne({staffId:decryptedId[1]});
-  console.log("came");
+  let exsistingUser = await User.findOne({staffId:decryptedId[1]});
   if(!exsistingUser){
-    return {
-      code:401,
-      info:{
-        message:"User does not exist",
-      }
-    }
+    exsistingUser = await User.findOne({staffId:decryptedId[1]});
   }
   const matchPassword = await bcryptjs.compare(password,exsistingUser.password);
-  console.log("came2");
   if(!matchPassword){
     return {
       code:400,
