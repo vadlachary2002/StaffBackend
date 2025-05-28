@@ -8,13 +8,14 @@ const login = catchAsync (async(req,res)=>{
   const options = {
     expires: new Date(moment (Date.now()).add(config.tokenExpiryDays,'days')),
     httpOnly: false,
-    secure: false,
+    secure: true,
+    sameSite: 'None'
   }
   const { email, staffId, token } =  info;
   res
-    .cookie('email',email,{httpOnly:true})
-    .cookie('staffId',staffId,{httpOnly:true})
-    .cookie('jwtoken',token,{httpOnly:false});
+    .cookie('email',email,{ ...options })
+    .cookie('staffId',staffId,{ ...options})
+    .cookie('jwtoken',token,{ ...options});
   res.status(code).json(info);
 })
 
